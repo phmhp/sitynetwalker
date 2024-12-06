@@ -81,7 +81,7 @@ public class DeveloperIssueStatusActivity extends AppCompatActivity {
             if (chatService.isConnected()) {
                 chatService.requestUnresolvedCount("키오스크");  // 키오스크 미해결 건수 요청
                 chatService.requestUnresolvedCount("네트워크"); // 네트워크 미해결 건수 요청
-                chatService.requestUnresolvedCount("보안 유지 및 보수"); // 보안 유지 및 보수 미해결 건수 요청
+                chatService.requestUnresolvedCount("보안 및 유지 보수"); // 보안 유지 및 보수 미해결 건수 요청
                 chatService.requestUnresolvedCount("데이터 품질 관리"); // 데이터 품질 관리 미해결 건수 요청
                 chatService.requestUnresolvedCount("고객 피드백"); // 고객 피드백 미해결 건수 요청
                 chatService.requestUnresolvedCount("비상 상황"); // 비상 상황 미해결 건수 요청

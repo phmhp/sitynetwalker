@@ -1,6 +1,7 @@
 package com.example.sitynetwalker.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,9 +63,7 @@ public class ChatActivity extends AppCompatActivity {
             String message = messageInput.getText().toString();
             if (!message.isEmpty()) {
                 // UI에 메시지 추가 (보낸 메시지 표시)
-                TextView messageView = new TextView(ChatActivity.this);
-                messageView.setText(role + ": " + message); // 역할 표시
-                chatContainer.addView(messageView);
+                addMessageToUI(role, message);
 
                 // 역할에 따라 서버로 메시지 전송 및 상태 업데이트
                 new Thread(() -> {
@@ -112,13 +111,34 @@ public class ChatActivity extends AppCompatActivity {
                     String[] messages = parts[2].split(",");
                     chatContainer.removeAllViews(); // 기존 채팅 기록 제거
                     for (String msg : messages) {
-                        TextView messageView = new TextView(ChatActivity.this);
-                        messageView.setText(msg);
-                        chatContainer.addView(messageView);
+                        String[] messageParts = msg.split(": ", 2);
+                        if (messageParts.length == 2) {
+                            addMessageToUI(messageParts[0], messageParts[1]); // 역할과 메시지 구분
+                        }
                     }
                 }
             });
         }
+    }
+
+    // 메시지를 UI에 추가 (글자 크기와 색상 설정 포함)
+    private void addMessageToUI(String senderRole, String message) {
+        TextView messageView = new TextView(ChatActivity.this);
+        messageView.setText(senderRole + ": " + message);
+
+        // 글자 크기 설정
+        messageView.setTextSize(20);
+
+        // 역할에 따라 메시지 색상 변경
+        if (senderRole.equals("관리자")) {
+            messageView.setTextColor(Color.RED); // 관리자 메시지는 빨간색
+        } else if (senderRole.equals("개발자") && message.equals("해결 완료")) {
+            messageView.setTextColor(Color.BLUE); // 개발자 메시지는 파란색
+        } else {
+            messageView.setTextColor(Color.BLACK); // 기본 메시지는 검은색
+        }
+
+        chatContainer.addView(messageView);
     }
 
     // 서버로부터 받은 메시지 처리
