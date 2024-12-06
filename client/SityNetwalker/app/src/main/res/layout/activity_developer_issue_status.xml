@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FAFAFA">
+    android:padding="16dp">
 
     <!-- Title -->
     <TextView
@@ -13,67 +12,225 @@
         android:layout_height="wrap_content"
         android:text="문제 해결"
         android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_gravity="center"
-        android:textColor="#333333"
-        android:paddingBottom="24dp" />
+        android:paddingBottom="16dp" />
 
-    <!-- Kiosk Issue Section -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:layout_marginBottom="12dp">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/button_kiosk"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="키오스크"
-            android:textSize="16sp"
-            android:backgroundTint="#6200EE"
-            android:textColor="#FFFFFF"
-            android:padding="12dp" />
-
-        <TextView
-            android:id="@+id/count_kiosk"
+        <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="16sp"
-            android:layout_gravity="center_vertical"
-            android:textColor="#333333"
-            android:paddingLeft="16dp" />
-    </LinearLayout>
+            android:layout_weight="1" />
 
-    <!-- Network Issue Section -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:layout_marginBottom="12dp">
-
-        <Button
-            android:id="@+id/button_network"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="네트워크"
-            android:textSize="16sp"
-            android:backgroundTint="#6200EE"
-            android:textColor="#FFFFFF"
-            android:padding="12dp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/count_network"
+            <Button
+                android:id="@+id/button_kiosk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#AAAAAA"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:text="키오스크" />
+
+            <TextView
+                android:id="@+id/count_kiosk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:testStyle="bold"
+                android:textColor="#CC0000"
+                android:paddingLeft="20dp"
+                android:paddingRight="5dp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="16sp"
-            android:layout_gravity="center_vertical"
-            android:textColor="#333333"
-            android:paddingLeft="16dp" />
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/button_network"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#AAAAAA"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:text="네트워크"/>
+
+            <TextView
+                android:id="@+id/count_network"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:testStyle="bold"
+                android:textColor="#CC0000"
+                android:paddingLeft="20dp"
+                android:paddingRight="5dp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/button_security"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#AAAAAA"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:text="보안 및 유지 보수"/>
+
+            <TextView
+                android:id="@+id/count_security"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:testStyle="bold"
+                android:textColor="#CC0000"
+                android:paddingLeft="20dp"
+                android:paddingRight="5dp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/button_datamanage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#AAAAAA"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:text="데이터 품질 관리"/>
+
+            <TextView
+                android:id="@+id/count_datamanage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:testStyle="bold"
+                android:textColor="#CC0000"
+                android:paddingLeft="20dp"
+                android:paddingRight="5dp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/button_customer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#AAAAAA"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:text="고객 피드백"/>
+
+            <TextView
+                android:id="@+id/count_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:testStyle="bold"
+                android:textColor="#CC0000"
+                android:paddingLeft="20dp"
+                android:paddingRight="5dp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/button_emergency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#CC0000"
+                android:textColor="#FFF6E9"
+                android:textStyle="bold"
+                android:text="키오스크"/>
+
+            <TextView
+                android:id="@+id/count_emergency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:testStyle="bold"
+                android:textColor="#CC0000"
+                android:paddingLeft="20dp"
+                android:paddingRight="5dp"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 </LinearLayout>
