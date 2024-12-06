@@ -16,7 +16,7 @@ import com.example.sitynetwalker.services.ChatService;
 import java.io.IOException;
 
 public class ChatActivity extends AppCompatActivity {
-    private ChatService chatService;
+    private ChatService chatService; // 서버와의 통신을 위한 ChatService 인스턴스
     private String role; // 관리자/개발자 역할
     private String issueType; // 문제 유형
     private LinearLayout chatContainer; // 채팅 메시지를 표시할 컨테이너
@@ -26,7 +26,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        // 채팅 메시지 컨테이너 초기화
+        // UI 요소 초기화
         chatContainer = findViewById(R.id.chat_container);
         EditText messageInput = findViewById(R.id.message_input);
         Button sendButton = findViewById(R.id.send_button);
@@ -36,7 +36,7 @@ public class ChatActivity extends AppCompatActivity {
         role = intent.getStringExtra("ROLE");
         issueType = intent.getStringExtra("ISSUE_TYPE");
 
-        chatService = new ChatService();
+        chatService = new ChatService(); // ChatService 초기화
 
         // 서버에 연결
         new Thread(() -> {
@@ -61,6 +61,7 @@ public class ChatActivity extends AppCompatActivity {
         sendButton.setOnClickListener(view -> {
             String message = messageInput.getText().toString();
             if (!message.isEmpty()) {
+                // UI에 메시지 추가 (보낸 메시지 표시)
                 TextView messageView = new TextView(ChatActivity.this);
                 messageView.setText(role + ": " + message); // 역할 표시
                 chatContainer.addView(messageView);
@@ -69,7 +70,7 @@ public class ChatActivity extends AppCompatActivity {
                 new Thread(() -> {
                     if (role.equals("관리자")) {
                         chatService.sendNewIssue(issueType); // NEW_ISSUE 요청 전송
-                    } else if (role.equals("개발자")) {
+                    } else if (role.equals("개발자") && message.equals("해결 완료")) {
                         chatService.resolveIssue(issueType); // RESOLVE_ISSUE 요청 전송
                     }
                     chatService.sendMessage(issueType, role, message); // 일반 채팅 메시지 전송
@@ -81,7 +82,7 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    // 서버에서 메시지를 실시간으로 수신하여 처리
+    // 서버로부터 메시지 수신 대기
     private void startListeningForMessages() {
         new Thread(() -> {
             boolean running = true;
@@ -131,6 +132,7 @@ public class ChatActivity extends AppCompatActivity {
         chatService.requestChatHistory(issueType);
     }
 
+    // 액티비티 종료 시 서버와의 연결 닫기
     @Override
     protected void onDestroy() {
         super.onDestroy();

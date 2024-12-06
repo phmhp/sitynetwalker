@@ -10,10 +10,12 @@ public class ChatServer {
     private final Map<String, Integer> unresolvedCounts = new HashMap<>();
 
     public void start(int port) throws IOException {
+        // 서버 열기
         serverSocket = new ServerSocket(port);
         System.out.println("Server started on port " + port);
 
         while (true) {
+            // 클라이언트가 서버에 연결 성공했을 시
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client connected: " + clientSocket.getInetAddress());
 

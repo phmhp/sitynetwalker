@@ -37,6 +37,7 @@ public class ClientHandler extends Thread {
                 String issueType;
 
                 switch (command) {
+                    // 새로운 문제 신고
                     case "NEW_ISSUE":
                         issueType = parts[1];
                         unresolvedCounts.put(issueType, unresolvedCounts.getOrDefault(issueType, 0) + 1);
@@ -44,6 +45,7 @@ public class ClientHandler extends Thread {
                         System.out.println("New issue reported: " + issueType);
                         break;
 
+                        // 문제 해결
                     case "RESOLVE_ISSUE":
                         issueType = parts[1];
                         unresolvedCounts.put(issueType, Math.max(unresolvedCounts.getOrDefault(issueType, 0) - 1, 0));
@@ -51,6 +53,7 @@ public class ClientHandler extends Thread {
                         System.out.println("Issue resolved: " + issueType);
                         break;
 
+                        // 메세지 수신
                     case "CHAT":
                         issueType = parts[1];
                         String sender = parts[2];
@@ -61,7 +64,7 @@ public class ClientHandler extends Thread {
                         System.out.println("Chat message received for " + issueType + ": " + message);
                         break;
 
-                    // Fix for GET_CHAT_HISTORY command
+                    // 대화 기록 불러오기
                     case "GET_CHAT_HISTORY":
                         issueType = parts[1];
                         List<String> history = chatHistory.getOrDefault(issueType, new ArrayList<>());
@@ -69,6 +72,7 @@ public class ClientHandler extends Thread {
                         System.out.println("Chat history sent for " + issueType);
                         break;
 
+                        // 미해결 건수 불러오기
                     case "GET_UNRESOLVED_COUNT":
                         issueType = parts[1];
                         int unresolvedCount = unresolvedCounts.getOrDefault(issueType, 0);
