@@ -10,8 +10,10 @@
         android:id="@+id/chat_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="~채팅창~"
+        android:text="채팅창"
         android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:layout_gravity="center"
         android:paddingBottom="16dp" />
 
@@ -42,7 +44,8 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:hint="메세지 입력"
-            android:padding="8dp"
+            android:textColor="@color/black"
+            android:layout_margin="3dp"
             android:background="@android:drawable/edit_text"
             android:minHeight="48dp" /> <!-- 최소 높이를 설정 -->
 
@@ -52,7 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:text="전송"
-            android:padding="8dp" />
+            android:background="#AAAAAA"
+            android:textColor="#FFFFFF"
+            android:layout_margin="3dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>
