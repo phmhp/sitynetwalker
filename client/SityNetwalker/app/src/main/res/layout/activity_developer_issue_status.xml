@@ -213,7 +213,7 @@
                 android:background="#CC0000"
                 android:textColor="#FFF6E9"
                 android:textStyle="bold"
-                android:text="키오스크"/>
+                android:text="비상 상황"/>
 
             <TextView
                 android:id="@+id/count_emergency"
