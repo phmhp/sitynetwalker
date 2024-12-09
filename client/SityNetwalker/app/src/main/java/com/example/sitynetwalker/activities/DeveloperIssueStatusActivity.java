@@ -148,4 +148,3 @@ public class DeveloperIssueStatusActivity extends AppCompatActivity {
         }).start();
     }
 }
-
