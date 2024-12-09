@@ -110,22 +110,6 @@ public class ChatActivity extends AppCompatActivity {
         } else if (response.startsWith("CHAT|")) {
             processIncomingMessage(response);
         }
-//        if (response.startsWith("CHAT_HISTORY")) {
-//            runOnUiThread(() -> {
-//                // 채팅 기록 UI 업데이트
-//                String[] parts = response.split("\\|", 3);
-//                if (parts.length == 3) {
-//                    String[] messages = parts[2].split(",");
-//                    chatContainer.removeAllViews(); // 기존 채팅 기록 제거
-//                    for (String msg : messages) {
-//                        String[] messageParts = msg.split(": ", 2);
-//                        if (messageParts.length == 2) {
-//                            addMessageToUI(messageParts[0], messageParts[1]); // 역할과 메시지 구분
-//                        }
-//                    }
-//                }
-//            });
-//        }
     }
 
     // 채팅 기록 요청
@@ -188,11 +172,6 @@ public class ChatActivity extends AppCompatActivity {
         // Custom toast implementation to display the message
         Toast.makeText(ChatActivity.this, message, Toast.LENGTH_LONG).show();
     }
-
-//    // 채팅 기록 요청
-//    private void requestChatHistory() {
-//        chatService.requestChatHistory(issueType);
-//    }
 
     // 액티비티 종료 시 서버와의 연결 닫기
     @Override
