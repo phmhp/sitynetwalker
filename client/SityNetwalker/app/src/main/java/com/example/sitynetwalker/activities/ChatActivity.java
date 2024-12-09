@@ -76,6 +76,8 @@ public class ChatActivity extends AppCompatActivity {
                     requestChatHistory(); // 채팅 기록 요청
                 }).start();
 
+                // 로컬 UI에 메시지 추가
+                addMessageToUI(role, message);
                 messageInput.setText(""); // 입력창 초기화
             }
         });
@@ -89,7 +91,7 @@ public class ChatActivity extends AppCompatActivity {
                 try {
                     String response = chatService.receiveMessage();
                     if (response != null) {
-                        handleServerResponse(response); // 받은 메시지 처리
+                        runOnUiThread(() -> handleServerResponse(response)); // UI에서 처리
                     } else {
                         running = false; // 연결 끊김 시 루프 종료
                     }
@@ -104,20 +106,60 @@ public class ChatActivity extends AppCompatActivity {
     // 서버 응답 처리 (채팅 기록 업데이트)
     private void handleServerResponse(String response) {
         if (response.startsWith("CHAT_HISTORY")) {
-            runOnUiThread(() -> {
-                // 채팅 기록 UI 업데이트
-                String[] parts = response.split("\\|", 3);
-                if (parts.length == 3) {
-                    String[] messages = parts[2].split(",");
-                    chatContainer.removeAllViews(); // 기존 채팅 기록 제거
-                    for (String msg : messages) {
-                        String[] messageParts = msg.split(": ", 2);
-                        if (messageParts.length == 2) {
-                            addMessageToUI(messageParts[0], messageParts[1]); // 역할과 메시지 구분
-                        }
-                    }
+            updateChatHistory(response);
+        } else if (response.startsWith("CHAT|")) {
+            processIncomingMessage(response);
+        }
+//        if (response.startsWith("CHAT_HISTORY")) {
+//            runOnUiThread(() -> {
+//                // 채팅 기록 UI 업데이트
+//                String[] parts = response.split("\\|", 3);
+//                if (parts.length == 3) {
+//                    String[] messages = parts[2].split(",");
+//                    chatContainer.removeAllViews(); // 기존 채팅 기록 제거
+//                    for (String msg : messages) {
+//                        String[] messageParts = msg.split(": ", 2);
+//                        if (messageParts.length == 2) {
+//                            addMessageToUI(messageParts[0], messageParts[1]); // 역할과 메시지 구분
+//                        }
+//                    }
+//                }
+//            });
+//        }
+    }
+
+    // 채팅 기록 요청
+    private void requestChatHistory() {
+        new Thread(() -> {
+            if (chatService.isConnected()) {
+                chatService.requestChatHistory(issueType); // 현재 문제 유형의 채팅 기록 요청
+            }
+        }).start();
+    }
+
+    // 채팅 기록 UI 업데이트
+    private void updateChatHistory(String response) {
+        String[] parts = response.split("\\|", 3);
+        if (parts.length == 3) {
+            String[] messages = parts[2].split(",");
+            chatContainer.removeAllViews(); // 기존 채팅 기록 제거
+            for (String msg : messages) {
+                String[] messageParts = msg.split(": ", 2);
+                if (messageParts.length == 2) {
+                    addMessageToUI(messageParts[0], messageParts[1]); // 역할과 메시지 구분
                 }
-            });
+            }
+        }
+    }
+
+    // 실시간 메시지 UI에 추가
+    private void processIncomingMessage(String response) {
+        String[] parts = response.split("\\|", 3);
+        if (parts.length == 3) {
+            String[] messageParts = parts[2].split(": ", 2);
+            if (messageParts.length == 2) {
+                addMessageToUI(messageParts[0], messageParts[1]);
+            }
         }
     }
 
@@ -147,10 +189,10 @@ public class ChatActivity extends AppCompatActivity {
         Toast.makeText(ChatActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
-    // 채팅 기록 요청
-    private void requestChatHistory() {
-        chatService.requestChatHistory(issueType);
-    }
+//    // 채팅 기록 요청
+//    private void requestChatHistory() {
+//        chatService.requestChatHistory(issueType);
+//    }
 
     // 액티비티 종료 시 서버와의 연결 닫기
     @Override
